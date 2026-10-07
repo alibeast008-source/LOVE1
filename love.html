@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const c = document.getElementById("c");
+const ctx = c.getContext("2d");
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+ctx.fillStyle = "#ffb6c1";
+ctx.font = "bold 8px Arial";
+ctx.textAlign = "center";
+
+let scale = 11;
+let i = 0;
+
+function step() {
+  for (let k = 0; k < 2; k++) {
+    if (scale > 16) return;
+    const angle = i * Math.PI * 2 / 120;
+    const x = 16 * Math.pow(Math.sin(angle), 3) * scale;
+    const y = (13 * Math.cos(angle)
+             - 5 * Math.cos(2 * angle)
+             - 2 * Math.cos(3 * angle)
+             - Math.cos(4 * angle)) * scale;
+    ctx.fillText("I love you", c.width / 2 + x, c.height / 2 - y);
+    i++;
+    if (i >= 120) { i = 0; scale++; }
+  }
+  requestAnimationFrame(step);
+}
+step();
+</script>
+</body>
+</html>
